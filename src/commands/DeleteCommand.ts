@@ -1,4 +1,5 @@
 import { Command } from "../core/Command";
+import { ICommandExecutableResult } from "../core/ICommandExecutableResults";
 import { DocumentState } from "../model/DocumentState";
 import { checkNotNull } from "../services/Functions";
 import { IDocumentCommandData } from "./IDocumentCommandData";
@@ -15,11 +16,14 @@ export class DeleteCommand extends Command<IDocumentCommandData> {
     console.log(`Delete command was executed`);
   }
 
-  protected isExecutableInternal(): boolean {
+  protected isExecutableInternal(): ICommandExecutableResult {
     const document = checkNotNull(this.commandData).document;
-    return (
-      document.state === DocumentState.Open ||
-      document.state === DocumentState.Closed
-    );
+
+    return {
+      isExecutable:
+        document.state === DocumentState.Open ||
+        document.state === DocumentState.Closed,
+      rejectReason: !this.executableResult ? "State must be open or closed." : "",
+    };
   }
 }

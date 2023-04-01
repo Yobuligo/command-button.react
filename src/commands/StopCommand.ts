@@ -1,4 +1,5 @@
 import { Command } from "../core/Command";
+import { ICommandExecutableResult } from "../core/ICommandExecutableResults";
 import { DocumentState } from "../model/DocumentState";
 import { checkNotNull } from "../services/Functions";
 import { IDocumentCommandData } from "./IDocumentCommandData";
@@ -15,11 +16,15 @@ export class StopCommand extends Command<IDocumentCommandData> {
     console.log(`Stop command was executed`);
   }
 
-  protected isExecutableInternal(): boolean {
+  protected isExecutableInternal(): ICommandExecutableResult {
     const document = checkNotNull(this.commandData).document;
-    return (
-      document.state === DocumentState.Open ||
-      document.state === DocumentState.InProgress
-    );
+    return {
+      isExecutable:
+        document.state === DocumentState.Open ||
+        document.state === DocumentState.InProgress,
+      rejectReason: !this.executableResult
+        ? "State must be open or in progress."
+        : "",
+    };
   }
 }

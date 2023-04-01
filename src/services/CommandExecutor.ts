@@ -3,7 +3,7 @@ import { ICommandExecutor } from "./ICommandExecutor";
 
 export class CommandExecutor implements ICommandExecutor {
   execute(command: ICommand): void {
-    if (command.isExecutable) {
+    if (command.executableResult.isExecutable) {
       command.execute();
     } else {
       console.log(`Command '${command.constructor.name}' must not be executed`);

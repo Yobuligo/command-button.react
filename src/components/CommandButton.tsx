@@ -10,8 +10,13 @@ const CommandButton: React.FC<ICommandProps> = (props) => {
     <Button
       {...props}
       caption={props.caption ?? props.command.title}
-      disabled={props.disabled ?? !props.command.isExecutable}
+      disabled={props.disabled ?? !props.command.executableResult.isExecutable}
       onClick={onExecuteCommand}
+      tooltip={
+        !props.command.executableResult.isExecutable
+          ? props.command.executableResult.rejectReason
+          : ""
+      }
     />
   );
 };
