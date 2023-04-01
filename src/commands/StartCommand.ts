@@ -1,5 +1,5 @@
 import { Command } from "../core/Command";
-import { ICommandExecutableResult } from "../core/ICommandExecutableResults";
+import { ICommandExecutableResult } from "../core/ICommandExecutableResult";
 import { DocumentState } from "../model/DocumentState";
 import { checkNotNull } from "../services/Functions";
 import { IDocumentCommandData } from "./IDocumentCommandData";

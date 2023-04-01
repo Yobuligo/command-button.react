@@ -1,5 +1,5 @@
 import { ICommandDetails } from "./ICommandDetails";
-import { ICommandExecutableResult } from "./ICommandExecutableResults";
+import { ICommandExecutableResult } from "./ICommandExecutableResult";
 
 export interface ICommand extends ICommandDetails {
   execute(): void;
