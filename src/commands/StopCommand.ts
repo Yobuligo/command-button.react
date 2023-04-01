@@ -3,6 +3,7 @@ import { ICommandExecutableResult } from "../core/ICommandExecutableResult";
 import { DocumentStateInProgress } from "../model/documentState/DocumentStateInProgress";
 import { DocumentStateOpen } from "../model/documentState/DocumentStateOpen";
 import { checkNotNull } from "../services/Functions";
+import { MessageProvider } from "../services/MessageProvider";
 import { IDocumentCommandData } from "./IDocumentCommandData";
 
 export class StopCommand extends Command<IDocumentCommandData> {
@@ -14,7 +15,7 @@ export class StopCommand extends Command<IDocumentCommandData> {
   }
 
   execute(): void {
-    console.log(`Stop command was executed`);
+    MessageProvider.message = `Stop command was executed`;
   }
 
   protected isExecutableInternal(): ICommandExecutableResult {

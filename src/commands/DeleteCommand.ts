@@ -3,6 +3,7 @@ import { ICommandExecutableResult } from "../core/ICommandExecutableResult";
 import { DocumentStateClosed } from "../model/documentState/DocumentStateClosed";
 import { DocumentStateOpen } from "../model/documentState/DocumentStateOpen";
 import { checkNotNull } from "../services/Functions";
+import { MessageProvider } from "../services/MessageProvider";
 import { IDocumentCommandData } from "./IDocumentCommandData";
 
 export class DeleteCommand extends Command<IDocumentCommandData> {
@@ -14,7 +15,7 @@ export class DeleteCommand extends Command<IDocumentCommandData> {
   }
 
   execute(): void {
-    console.log(`Delete command was executed`);
+    MessageProvider.message = `Delete command was executed`;
   }
 
   protected isExecutableInternal(): ICommandExecutableResult {
