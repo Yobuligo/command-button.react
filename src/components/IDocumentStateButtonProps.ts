@@ -6,4 +6,5 @@ export interface IDocumentStateButtonProps extends IButtonProps {
   type: DocumentState;
   document: IDocument;
   onStateChanged: (newState: DocumentState) => void;
+  callable: () => void;
 }

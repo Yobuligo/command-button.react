@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import "./App.css";
 import { DeleteCommand } from "./commands/DeleteCommand";
 import { StartCommand } from "./commands/StartCommand";
@@ -16,25 +16,23 @@ function App() {
     setDocumentState(newState);
   };
 
+  const items: ReactNode[] = [];
+  for (let propName in DocumentState) {
+    const prop = (DocumentState as any)[propName];
+    items.push(
+      <DocumentStateButton
+        key={prop}
+        type={prop}
+        document={document}
+        onStateChanged={updateDocumentState}
+        callable={(document.state as any)[prop].bind(document.state)}
+      />
+    );
+  }
+
   return (
     <>
-      <section>
-        <DocumentStateButton
-          type={DocumentState.Open}
-          document={document}
-          onStateChanged={updateDocumentState}
-        />
-        <DocumentStateButton
-          type={DocumentState.InProgress}
-          document={document}
-          onStateChanged={updateDocumentState}
-        />
-        <DocumentStateButton
-          type={DocumentState.Closed}
-          document={document}
-          onStateChanged={updateDocumentState}
-        />
-      </section>
+      <section>{items}</section>
       <section>
         <CommandButton command={new StartCommand({ document })} />
         <CommandButton command={new StopCommand({ document })} />

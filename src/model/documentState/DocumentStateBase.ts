@@ -6,4 +6,6 @@ export abstract class DocumentStateBase implements IDocumentStateBase {
   abstract onOpen(): void;
   abstract onInProgress(): void;
   abstract onClose(): void;
+
+  onNew(): void {}
 }

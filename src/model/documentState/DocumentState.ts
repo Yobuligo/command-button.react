@@ -1,5 +1,5 @@
 export enum DocumentState {
-  Open,
-  InProgress,
-  Closed,
+  Open = "onOpen",
+  InProgress = "onInProgress",
+  Closed = "onClose",
 }
