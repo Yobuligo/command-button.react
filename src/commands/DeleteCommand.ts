@@ -1,6 +1,7 @@
 import { Command } from "../core/Command";
 import { ICommandExecutableResult } from "../core/ICommandExecutableResult";
-import { DocumentState } from "../model/DocumentState";
+import { DocumentStateClosed } from "../model/documentState/DocumentStateClosed";
+import { DocumentStateOpen } from "../model/documentState/DocumentStateOpen";
 import { checkNotNull } from "../services/Functions";
 import { IDocumentCommandData } from "./IDocumentCommandData";
 
@@ -18,12 +19,13 @@ export class DeleteCommand extends Command<IDocumentCommandData> {
 
   protected isExecutableInternal(): ICommandExecutableResult {
     const document = checkNotNull(this.commandData).document;
-
     return {
       isExecutable:
-        document.state === DocumentState.Open ||
-        document.state === DocumentState.Closed,
-      rejectReason: !this.executableResult ? "State must be open or closed." : "",
+        document.state.constructor.name === DocumentStateClosed.name ||
+        document.state.constructor.name === DocumentStateOpen.name,
+      rejectReason: !this.executableResult
+        ? "State must be open or closed."
+        : "",
     };
   }
 }

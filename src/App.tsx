@@ -3,38 +3,36 @@ import "./App.css";
 import { DeleteCommand } from "./commands/DeleteCommand";
 import { StartCommand } from "./commands/StartCommand";
 import { StopCommand } from "./commands/StopCommand";
-import Button from "./components/Button";
 import CommandButton from "./components/CommandButton";
-import { Document } from "./model/Document";
-import { DocumentState } from "./model/DocumentState";
+import DocumentStateButton from "./components/DocumentStateButton";
+import { Document } from "./model/document/Document";
+import { IDocument } from "./model/document/IDocument";
+import { DocumentState } from "./model/documentState/DocumentState";
 
 function App() {
-  console.log("rerender");
-  const document = useMemo(() => new Document(), []);
-  const [documentState, setDocumentState] = useState(document.state);
-
-  const updateDocumentState = (newDocumentState: DocumentState) => {
-    document.state = newDocumentState;
-    setDocumentState(newDocumentState);
+  const document: IDocument = useMemo(() => new Document(), []);
+  const [, setDocumentState] = useState(document.state.type);
+  const updateDocumentState = (newState: DocumentState) => {
+    setDocumentState(newState);
   };
 
   return (
     <>
       <section>
-        <Button
-          caption="Open"
-          disabled={documentState === DocumentState.Open ? true : false}
-          onClick={() => updateDocumentState(DocumentState.Open)}
+        <DocumentStateButton
+          type={DocumentState.Open}
+          document={document}
+          onStateChanged={updateDocumentState}
         />
-        <Button
-          caption="In Progress"
-          disabled={documentState === DocumentState.InProgress ? true : false}
-          onClick={() => updateDocumentState(DocumentState.InProgress)}
+        <DocumentStateButton
+          type={DocumentState.InProgress}
+          document={document}
+          onStateChanged={updateDocumentState}
         />
-        <Button
-          caption="Closed"
-          disabled={documentState === DocumentState.Closed ? true : false}
-          onClick={() => updateDocumentState(DocumentState.Closed)}
+        <DocumentStateButton
+          type={DocumentState.Closed}
+          document={document}
+          onStateChanged={updateDocumentState}
         />
       </section>
       <section>
